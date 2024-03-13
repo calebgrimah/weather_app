@@ -8,6 +8,8 @@
 GFC weather application, 
 ## Architecture 🚀
 - The Weather application has been structured in a clean modularised pattern. Separate modules for the repository, api, and domain have been created.
+- Flutter bloc was used for state management.
+- Dio for web calls.
 ## Demo🚀
 ![weather_app_demo](https://github.com/calebgrimah/weather_app/assets/25030728/0eeb7c9e-dd56-413b-88eb-cfde30ad31d0)
 
