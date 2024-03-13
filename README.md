@@ -9,7 +9,8 @@ GFC weather application,
 ## Architecture 🚀
 - The Weather application has been structured in a clean modularised pattern. Separate modules for the repository, api, and domain have been created.
 ## Demo🚀
-![weather_app_demo.gif]
+![weather_app_demo](https://github.com/calebgrimah/weather_app/assets/25030728/0eeb7c9e-dd56-413b-88eb-cfde30ad31d0)
+
 
 ---
 
@@ -34,7 +35,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Weather App works on iOS, Android, Web, and Windows._
+_\*Weather App works on iOS, Android._
 
 ---
 
