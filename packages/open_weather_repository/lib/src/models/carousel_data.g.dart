@@ -9,13 +9,14 @@ part of 'carousel_data.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetCarouselDataCollection on Isar {
-  IsarCollection<CarouselData> get carouselDatas => this.collection();
+extension GetCarouselEntityDataCollection on Isar {
+  IsarCollection<CarouselEntityData> get carouselEntityDatas =>
+      this.collection();
 }
 
-const CarouselDataSchema = CollectionSchema(
-  name: r'CarouselData',
-  id: 4543148183746912581,
+const CarouselEntityDataSchema = CollectionSchema(
+  name: r'CarouselEntityData',
+  id: 409653089338073936,
   properties: {
     r'cityId': PropertySchema(
       id: 0,
@@ -28,22 +29,22 @@ const CarouselDataSchema = CollectionSchema(
       type: IsarType.long,
     )
   },
-  estimateSize: _carouselDataEstimateSize,
-  serialize: _carouselDataSerialize,
-  deserialize: _carouselDataDeserialize,
-  deserializeProp: _carouselDataDeserializeProp,
+  estimateSize: _carouselEntityDataEstimateSize,
+  serialize: _carouselEntityDataSerialize,
+  deserialize: _carouselEntityDataDeserialize,
+  deserializeProp: _carouselEntityDataDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _carouselDataGetId,
-  getLinks: _carouselDataGetLinks,
-  attach: _carouselDataAttach,
+  getId: _carouselEntityDataGetId,
+  getLinks: _carouselEntityDataGetLinks,
+  attach: _carouselEntityDataAttach,
   version: '3.1.0',
 );
 
-int _carouselDataEstimateSize(
-  CarouselData object,
+int _carouselEntityDataEstimateSize(
+  CarouselEntityData object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -51,8 +52,8 @@ int _carouselDataEstimateSize(
   return bytesCount;
 }
 
-void _carouselDataSerialize(
-  CarouselData object,
+void _carouselEntityDataSerialize(
+  CarouselEntityData object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -61,20 +62,20 @@ void _carouselDataSerialize(
   writer.writeLong(offsets[1], object.weatherId);
 }
 
-CarouselData _carouselDataDeserialize(
+CarouselEntityData _carouselEntityDataDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = CarouselData();
+  final object = CarouselEntityData();
   object.cityId = reader.readLongOrNull(offsets[0]);
   object.id = id;
   object.weatherId = reader.readLongOrNull(offsets[1]);
   return object;
 }
 
-P _carouselDataDeserializeProp<P>(
+P _carouselEntityDataDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -90,31 +91,33 @@ P _carouselDataDeserializeProp<P>(
   }
 }
 
-Id _carouselDataGetId(CarouselData object) {
+Id _carouselEntityDataGetId(CarouselEntityData object) {
   return object.id ?? Isar.autoIncrement;
 }
 
-List<IsarLinkBase<dynamic>> _carouselDataGetLinks(CarouselData object) {
+List<IsarLinkBase<dynamic>> _carouselEntityDataGetLinks(
+    CarouselEntityData object) {
   return [];
 }
 
-void _carouselDataAttach(
-    IsarCollection<dynamic> col, Id id, CarouselData object) {
+void _carouselEntityDataAttach(
+    IsarCollection<dynamic> col, Id id, CarouselEntityData object) {
   object.id = id;
 }
 
-extension CarouselDataQueryWhereSort
-    on QueryBuilder<CarouselData, CarouselData, QWhere> {
-  QueryBuilder<CarouselData, CarouselData, QAfterWhere> anyId() {
+extension CarouselEntityDataQueryWhereSort
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QWhere> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension CarouselDataQueryWhere
-    on QueryBuilder<CarouselData, CarouselData, QWhereClause> {
-  QueryBuilder<CarouselData, CarouselData, QAfterWhereClause> idEqualTo(Id id) {
+extension CarouselEntityDataQueryWhere
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QWhereClause> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhereClause>
+      idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -123,8 +126,8 @@ extension CarouselDataQueryWhere
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhereClause>
+      idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -146,9 +149,8 @@ extension CarouselDataQueryWhere
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterWhereClause> idGreaterThan(
-      Id id,
-      {bool include = false}) {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhereClause>
+      idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -156,8 +158,8 @@ extension CarouselDataQueryWhere
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhereClause>
+      idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -165,7 +167,8 @@ extension CarouselDataQueryWhere
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterWhereClause> idBetween(
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterWhereClause>
+      idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -182,9 +185,9 @@ extension CarouselDataQueryWhere
   }
 }
 
-extension CarouselDataQueryFilter
-    on QueryBuilder<CarouselData, CarouselData, QFilterCondition> {
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+extension CarouselEntityDataQueryFilter
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QFilterCondition> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       cityIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -193,7 +196,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       cityIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -202,8 +205,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> cityIdEqualTo(
-      int? value) {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      cityIdEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'cityId',
@@ -212,7 +215,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       cityIdGreaterThan(
     int? value, {
     bool include = false,
@@ -226,7 +229,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       cityIdLessThan(
     int? value, {
     bool include = false,
@@ -240,7 +243,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> cityIdBetween(
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      cityIdBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -257,7 +261,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> idIsNull() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      idIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'id',
@@ -265,7 +270,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       idIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -274,8 +279,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> idEqualTo(
-      Id? value) {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      idEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -284,7 +289,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      idGreaterThan(
     Id? value, {
     bool include = false,
   }) {
@@ -297,7 +303,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> idLessThan(
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      idLessThan(
     Id? value, {
     bool include = false,
   }) {
@@ -310,7 +317,8 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition> idBetween(
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
+      idBetween(
     Id? lower,
     Id? upper, {
     bool includeLower = true,
@@ -327,7 +335,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -336,7 +344,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -345,7 +353,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -355,7 +363,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdGreaterThan(
     int? value, {
     bool include = false,
@@ -369,7 +377,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdLessThan(
     int? value, {
     bool include = false,
@@ -383,7 +391,7 @@ extension CarouselDataQueryFilter
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterFilterCondition>
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterFilterCondition>
       weatherIdBetween(
     int? lower,
     int? upper, {
@@ -402,108 +410,120 @@ extension CarouselDataQueryFilter
   }
 }
 
-extension CarouselDataQueryObject
-    on QueryBuilder<CarouselData, CarouselData, QFilterCondition> {}
+extension CarouselEntityDataQueryObject
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QFilterCondition> {}
 
-extension CarouselDataQueryLinks
-    on QueryBuilder<CarouselData, CarouselData, QFilterCondition> {}
+extension CarouselEntityDataQueryLinks
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QFilterCondition> {}
 
-extension CarouselDataQuerySortBy
-    on QueryBuilder<CarouselData, CarouselData, QSortBy> {
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> sortByCityId() {
+extension CarouselEntityDataQuerySortBy
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QSortBy> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      sortByCityId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cityId', Sort.asc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> sortByCityIdDesc() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      sortByCityIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cityId', Sort.desc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> sortByWeatherId() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      sortByWeatherId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'weatherId', Sort.asc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> sortByWeatherIdDesc() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      sortByWeatherIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'weatherId', Sort.desc);
     });
   }
 }
 
-extension CarouselDataQuerySortThenBy
-    on QueryBuilder<CarouselData, CarouselData, QSortThenBy> {
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenByCityId() {
+extension CarouselEntityDataQuerySortThenBy
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QSortThenBy> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenByCityId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cityId', Sort.asc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenByCityIdDesc() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenByCityIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cityId', Sort.desc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenById() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenByWeatherId() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenByWeatherId() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'weatherId', Sort.asc);
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QAfterSortBy> thenByWeatherIdDesc() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QAfterSortBy>
+      thenByWeatherIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'weatherId', Sort.desc);
     });
   }
 }
 
-extension CarouselDataQueryWhereDistinct
-    on QueryBuilder<CarouselData, CarouselData, QDistinct> {
-  QueryBuilder<CarouselData, CarouselData, QDistinct> distinctByCityId() {
+extension CarouselEntityDataQueryWhereDistinct
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QDistinct> {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QDistinct>
+      distinctByCityId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cityId');
     });
   }
 
-  QueryBuilder<CarouselData, CarouselData, QDistinct> distinctByWeatherId() {
+  QueryBuilder<CarouselEntityData, CarouselEntityData, QDistinct>
+      distinctByWeatherId() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'weatherId');
     });
   }
 }
 
-extension CarouselDataQueryProperty
-    on QueryBuilder<CarouselData, CarouselData, QQueryProperty> {
-  QueryBuilder<CarouselData, int, QQueryOperations> idProperty() {
+extension CarouselEntityDataQueryProperty
+    on QueryBuilder<CarouselEntityData, CarouselEntityData, QQueryProperty> {
+  QueryBuilder<CarouselEntityData, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<CarouselData, int?, QQueryOperations> cityIdProperty() {
+  QueryBuilder<CarouselEntityData, int?, QQueryOperations> cityIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cityId');
     });
   }
 
-  QueryBuilder<CarouselData, int?, QQueryOperations> weatherIdProperty() {
+  QueryBuilder<CarouselEntityData, int?, QQueryOperations> weatherIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'weatherId');
     });

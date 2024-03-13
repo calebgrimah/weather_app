@@ -31,12 +31,3 @@ extension WeatherRemoteToCachedModel on CurrentWeatherResponse {
       ..weatherMain = weather?.first.main;
   }
 }
-
-// extension CoordRMtoCM on Coor {
-//   Weather toCacheModel() {
-//     return Weather()
-//       ..name = name
-//       ..coord = coord
-//     ;
-//   }
-// }

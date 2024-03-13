@@ -9,13 +9,13 @@ part of 'city.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetCityCollection on Isar {
-  IsarCollection<City> get citys => this.collection();
+extension GetCityEntityCollection on Isar {
+  IsarCollection<CityEntity> get cityEntitys => this.collection();
 }
 
-const CitySchema = CollectionSchema(
-  name: r'City',
-  id: 7924339642267295226,
+const CityEntitySchema = CollectionSchema(
+  name: r'CityEntity',
+  id: -5045613395412479033,
   properties: {
     r'adminName': PropertySchema(
       id: 0,
@@ -63,22 +63,22 @@ const CitySchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _cityEstimateSize,
-  serialize: _citySerialize,
-  deserialize: _cityDeserialize,
-  deserializeProp: _cityDeserializeProp,
+  estimateSize: _cityEntityEstimateSize,
+  serialize: _cityEntitySerialize,
+  deserialize: _cityEntityDeserialize,
+  deserializeProp: _cityEntityDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _cityGetId,
-  getLinks: _cityGetLinks,
-  attach: _cityAttach,
+  getId: _cityEntityGetId,
+  getLinks: _cityEntityGetLinks,
+  attach: _cityEntityAttach,
   version: '3.1.0',
 );
 
-int _cityEstimateSize(
-  City object,
+int _cityEntityEstimateSize(
+  CityEntity object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -140,8 +140,8 @@ int _cityEstimateSize(
   return bytesCount;
 }
 
-void _citySerialize(
-  City object,
+void _cityEntitySerialize(
+  CityEntity object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -157,13 +157,13 @@ void _citySerialize(
   writer.writeString(offsets[8], object.populationProper);
 }
 
-City _cityDeserialize(
+CityEntity _cityEntityDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = City();
+  final object = CityEntity();
   object.adminName = reader.readStringOrNull(offsets[0]);
   object.capital = reader.readStringOrNull(offsets[1]);
   object.city = reader.readStringOrNull(offsets[2]);
@@ -177,7 +177,7 @@ City _cityDeserialize(
   return object;
 }
 
-P _cityDeserializeProp<P>(
+P _cityEntityDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -207,28 +207,30 @@ P _cityDeserializeProp<P>(
   }
 }
 
-Id _cityGetId(City object) {
+Id _cityEntityGetId(CityEntity object) {
   return object.id ?? Isar.autoIncrement;
 }
 
-List<IsarLinkBase<dynamic>> _cityGetLinks(City object) {
+List<IsarLinkBase<dynamic>> _cityEntityGetLinks(CityEntity object) {
   return [];
 }
 
-void _cityAttach(IsarCollection<dynamic> col, Id id, City object) {
+void _cityEntityAttach(IsarCollection<dynamic> col, Id id, CityEntity object) {
   object.id = id;
 }
 
-extension CityQueryWhereSort on QueryBuilder<City, City, QWhere> {
-  QueryBuilder<City, City, QAfterWhere> anyId() {
+extension CityEntityQueryWhereSort
+    on QueryBuilder<CityEntity, CityEntity, QWhere> {
+  QueryBuilder<CityEntity, CityEntity, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
-  QueryBuilder<City, City, QAfterWhereClause> idEqualTo(Id id) {
+extension CityEntityQueryWhere
+    on QueryBuilder<CityEntity, CityEntity, QWhereClause> {
+  QueryBuilder<CityEntity, CityEntity, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -237,7 +239,7 @@ extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
     });
   }
 
-  QueryBuilder<City, City, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<CityEntity, CityEntity, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -259,7 +261,7 @@ extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
     });
   }
 
-  QueryBuilder<City, City, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<CityEntity, CityEntity, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -268,7 +270,7 @@ extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
     });
   }
 
-  QueryBuilder<City, City, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<CityEntity, CityEntity, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -277,7 +279,7 @@ extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
     });
   }
 
-  QueryBuilder<City, City, QAfterWhereClause> idBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -294,8 +296,10 @@ extension CityQueryWhere on QueryBuilder<City, City, QWhereClause> {
   }
 }
 
-extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameIsNull() {
+extension CityEntityQueryFilter
+    on QueryBuilder<CityEntity, CityEntity, QFilterCondition> {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'adminName',
@@ -303,7 +307,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'adminName',
@@ -311,7 +316,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -324,7 +329,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -339,7 +345,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -354,7 +360,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -373,7 +379,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -386,7 +393,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -399,7 +406,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameContains(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -411,7 +418,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameMatches(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> adminNameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -423,7 +430,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'adminName',
@@ -432,7 +440,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> adminNameIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      adminNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'adminName',
@@ -441,7 +450,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'capital',
@@ -449,7 +458,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      capitalIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'capital',
@@ -457,7 +467,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -470,7 +480,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      capitalGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -485,7 +496,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -500,7 +511,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -519,7 +530,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -532,7 +543,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -545,7 +556,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalContains(String value,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -556,7 +568,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalMatches(String pattern,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -567,7 +580,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> capitalIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'capital',
@@ -576,7 +589,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> capitalIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      capitalIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'capital',
@@ -585,7 +599,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'city',
@@ -593,7 +607,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'city',
@@ -601,7 +615,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -614,7 +628,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -629,7 +643,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -644,7 +658,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -663,7 +677,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -676,7 +690,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -689,7 +703,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityContains(String value,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -700,7 +715,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityMatches(String pattern,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -711,7 +727,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'city',
@@ -720,7 +736,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> cityIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> cityIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'city',
@@ -729,7 +745,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'country',
@@ -737,7 +753,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      countryIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'country',
@@ -745,7 +762,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -758,7 +775,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      countryGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -773,7 +791,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -788,7 +806,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -807,7 +825,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -820,7 +838,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -833,7 +851,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryContains(String value,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -844,7 +863,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryMatches(String pattern,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -855,7 +875,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> countryIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'country',
@@ -864,7 +884,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> countryIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      countryIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'country',
@@ -873,7 +894,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'id',
@@ -881,7 +902,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'id',
@@ -889,7 +910,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idEqualTo(Id? value) {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idEqualTo(
+      Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -898,7 +920,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idGreaterThan(
     Id? value, {
     bool include = false,
   }) {
@@ -911,7 +933,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idLessThan(
     Id? value, {
     bool include = false,
   }) {
@@ -924,7 +946,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> idBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> idBetween(
     Id? lower,
     Id? upper, {
     bool includeLower = true,
@@ -941,7 +963,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2IsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2IsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'iso2',
@@ -949,7 +971,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2IsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2IsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'iso2',
@@ -957,7 +979,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2EqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2EqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -970,7 +992,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2GreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2GreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -985,7 +1007,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2LessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2LessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1000,7 +1022,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2Between(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2Between(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1019,7 +1041,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2StartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2StartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1032,7 +1054,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2EndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2EndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1045,7 +1067,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2Contains(String value,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2Contains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -1056,7 +1079,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2Matches(String pattern,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2Matches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -1067,7 +1091,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2IsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2IsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'iso2',
@@ -1076,7 +1100,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> iso2IsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> iso2IsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'iso2',
@@ -1085,7 +1109,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'latitude',
@@ -1093,7 +1117,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      latitudeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'latitude',
@@ -1101,7 +1126,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1114,7 +1139,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      latitudeGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1129,7 +1155,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1144,7 +1170,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1163,7 +1189,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      latitudeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1176,7 +1203,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1189,7 +1216,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeContains(String value,
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -1200,7 +1228,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeMatches(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> latitudeMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1212,7 +1240,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      latitudeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'latitude',
@@ -1221,7 +1250,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> latitudeIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      latitudeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'latitude',
@@ -1230,7 +1260,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'longitude',
@@ -1238,7 +1269,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'longitude',
@@ -1246,7 +1278,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1259,7 +1291,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1274,7 +1307,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1289,7 +1322,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1308,7 +1341,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1321,7 +1355,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1334,7 +1368,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeContains(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1346,7 +1380,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeMatches(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> longitudeMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1358,7 +1392,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'longitude',
@@ -1367,7 +1402,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> longitudeIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      longitudeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'longitude',
@@ -1376,7 +1412,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'population',
@@ -1384,7 +1421,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'population',
@@ -1392,7 +1430,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> populationEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1405,7 +1443,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1420,7 +1459,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1435,7 +1475,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> populationBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1454,7 +1494,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1467,7 +1508,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1480,9 +1522,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'population',
@@ -1492,7 +1533,7 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationMatches(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition> populationMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1504,7 +1545,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'population',
@@ -1513,7 +1555,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'population',
@@ -1522,7 +1565,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperIsNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'populationProper',
@@ -1530,7 +1574,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperIsNotNull() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'populationProper',
@@ -1538,7 +1583,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperEqualTo(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1551,7 +1597,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperGreaterThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1566,7 +1613,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperLessThan(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1581,7 +1629,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperBetween(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1600,7 +1649,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperStartsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1613,7 +1663,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperEndsWith(
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1626,9 +1677,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperContains(
-      String value,
-      {bool caseSensitive = true}) {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
         property: r'populationProper',
@@ -1638,9 +1688,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'populationProper',
@@ -1650,7 +1699,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperIsEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'populationProper',
@@ -1659,7 +1709,8 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
     });
   }
 
-  QueryBuilder<City, City, QAfterFilterCondition> populationProperIsNotEmpty() {
+  QueryBuilder<CityEntity, CityEntity, QAfterFilterCondition>
+      populationProperIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'populationProper',
@@ -1669,300 +1720,307 @@ extension CityQueryFilter on QueryBuilder<City, City, QFilterCondition> {
   }
 }
 
-extension CityQueryObject on QueryBuilder<City, City, QFilterCondition> {}
+extension CityEntityQueryObject
+    on QueryBuilder<CityEntity, CityEntity, QFilterCondition> {}
 
-extension CityQueryLinks on QueryBuilder<City, City, QFilterCondition> {}
+extension CityEntityQueryLinks
+    on QueryBuilder<CityEntity, CityEntity, QFilterCondition> {}
 
-extension CityQuerySortBy on QueryBuilder<City, City, QSortBy> {
-  QueryBuilder<City, City, QAfterSortBy> sortByAdminName() {
+extension CityEntityQuerySortBy
+    on QueryBuilder<CityEntity, CityEntity, QSortBy> {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByAdminName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'adminName', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByAdminNameDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByAdminNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'adminName', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCapital() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCapital() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'capital', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCapitalDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCapitalDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'capital', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCity() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCityDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCountry() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCountry() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'country', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByCountryDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByCountryDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'country', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByIso2() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByIso2() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'iso2', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByIso2Desc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByIso2Desc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'iso2', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByLatitude() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByLatitude() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'latitude', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByLatitudeDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByLatitudeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'latitude', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByLongitude() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByLongitude() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'longitude', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByLongitudeDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByLongitudeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'longitude', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByPopulation() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByPopulation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'population', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByPopulationDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByPopulationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'population', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByPopulationProper() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> sortByPopulationProper() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'populationProper', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> sortByPopulationProperDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy>
+      sortByPopulationProperDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'populationProper', Sort.desc);
     });
   }
 }
 
-extension CityQuerySortThenBy on QueryBuilder<City, City, QSortThenBy> {
-  QueryBuilder<City, City, QAfterSortBy> thenByAdminName() {
+extension CityEntityQuerySortThenBy
+    on QueryBuilder<CityEntity, CityEntity, QSortThenBy> {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByAdminName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'adminName', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByAdminNameDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByAdminNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'adminName', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCapital() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCapital() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'capital', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCapitalDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCapitalDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'capital', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCity() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCityDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCityDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'city', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCountry() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCountry() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'country', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByCountryDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByCountryDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'country', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenById() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByIso2() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByIso2() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'iso2', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByIso2Desc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByIso2Desc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'iso2', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByLatitude() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByLatitude() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'latitude', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByLatitudeDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByLatitudeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'latitude', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByLongitude() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByLongitude() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'longitude', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByLongitudeDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByLongitudeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'longitude', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByPopulation() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByPopulation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'population', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByPopulationDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByPopulationDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'population', Sort.desc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByPopulationProper() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy> thenByPopulationProper() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'populationProper', Sort.asc);
     });
   }
 
-  QueryBuilder<City, City, QAfterSortBy> thenByPopulationProperDesc() {
+  QueryBuilder<CityEntity, CityEntity, QAfterSortBy>
+      thenByPopulationProperDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'populationProper', Sort.desc);
     });
   }
 }
 
-extension CityQueryWhereDistinct on QueryBuilder<City, City, QDistinct> {
-  QueryBuilder<City, City, QDistinct> distinctByAdminName(
+extension CityEntityQueryWhereDistinct
+    on QueryBuilder<CityEntity, CityEntity, QDistinct> {
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByAdminName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'adminName', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByCapital(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByCapital(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'capital', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByCity(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByCity(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'city', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByCountry(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByCountry(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'country', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByIso2(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByIso2(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'iso2', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByLatitude(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByLatitude(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'latitude', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByLongitude(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByLongitude(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'longitude', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByPopulation(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByPopulation(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'population', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<City, City, QDistinct> distinctByPopulationProper(
+  QueryBuilder<CityEntity, CityEntity, QDistinct> distinctByPopulationProper(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'populationProper',
@@ -1971,62 +2029,64 @@ extension CityQueryWhereDistinct on QueryBuilder<City, City, QDistinct> {
   }
 }
 
-extension CityQueryProperty on QueryBuilder<City, City, QQueryProperty> {
-  QueryBuilder<City, int, QQueryOperations> idProperty() {
+extension CityEntityQueryProperty
+    on QueryBuilder<CityEntity, CityEntity, QQueryProperty> {
+  QueryBuilder<CityEntity, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> adminNameProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> adminNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'adminName');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> capitalProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> capitalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'capital');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> cityProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> cityProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'city');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> countryProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> countryProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'country');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> iso2Property() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> iso2Property() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'iso2');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> latitudeProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> latitudeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'latitude');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> longitudeProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> longitudeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'longitude');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> populationProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations> populationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'population');
     });
   }
 
-  QueryBuilder<City, String?, QQueryOperations> populationProperProperty() {
+  QueryBuilder<CityEntity, String?, QQueryOperations>
+      populationProperProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'populationProper');
     });

@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.4
   path_provider: ^2.0.11
+  carousel_slider: ^4.2.1
+  cached_network_image: ^3.3.1
+  flutter_cache_manager: ^3.3.1
   json_annotation: ^4.7.0
   responsive_builder: ^0.7.0
   logger: ^2.0.2+1
@@ -35,10 +38,6 @@ dependencies:
   open_weather_repository:
     path: packages/open_weather_repository
 
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.18.1
-
 
 dev_dependencies:
   bloc_test: ^9.1.6
@@ -48,6 +47,8 @@ dev_dependencies:
   very_good_analysis: ^5.1.0
 
 flutter:
+  assets:
+    - assets/ng.json
   uses-material-design: true
   generate: true
   fonts:
