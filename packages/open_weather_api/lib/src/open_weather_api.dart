@@ -4,17 +4,17 @@ import 'package:open_weather_api/src/url_builder.dart';
 
 import 'models/response/current_weather_response.dart';
 
-typedef UserTokenSupplier = Future<String?> Function();
-
 class OpenWeatherApi {
   OpenWeatherApi({
     @visibleForTesting Dio? dio,
     @visibleForTesting UrlBuilder? urlBuilder,
   })  : _dio = dio ?? Dio(),
         _urlBuilder = urlBuilder ?? const UrlBuilder() {
-    _dio.interceptors.add(
-      LogInterceptor(responseBody: false),
-    );
+    if (_dio != null) {
+      _dio.interceptors.add(
+        LogInterceptor(responseBody: false),
+      );
+    }
   }
 
   final Dio _dio;

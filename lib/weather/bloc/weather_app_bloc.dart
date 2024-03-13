@@ -22,13 +22,11 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
       try {
         final response = await weatherAppRepository
             .fetchCachedWeatherForCity(event.city.id ?? 0);
-        final weatherData = response?.toDomainWeatherModel();
-        if (weatherData == null) {
+        if (response == null) {
           emit(const FetchWeatherForCityError(
               error: "Failed to fetch weather for city"));
         } else {
-          emit(FetchWeatherForCitySuccess(
-              weatherData: response!.toDomainWeatherModel()));
+          emit(FetchWeatherForCitySuccess(weatherData: response));
         }
       } catch (e) {
         emit(FetchWeatherForCityError(error: e.toString()));
@@ -45,6 +43,7 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
         emit(CreateCarouselDataError(error: e.toString()));
       }
     });
+
     on<FetchUserCurrentWeather>((event, emit) async {
       emit(FetchUserWeatherLoading());
       try {
@@ -55,7 +54,7 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
         if (userWeather == null) {
           emit(const FetchUserWeatherError(error: "Error Fetching user data"));
         } else {
-          emit(FetchUserWeatherSuccess(userWeather.toDomainWeatherModel()));
+          emit(FetchUserWeatherSuccess(userWeather));
         }
       } catch (e) {
         emit(FetchUserWeatherError(error: e.toString()));
@@ -76,11 +75,8 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
       emit(FetchCarouselDataLoading());
       try {
         final response = await weatherAppRepository.fetchSavedCarouselData();
-        final cData = response
-            .map((e) => e.toDomainCarouselModel())
-            .toList(growable: true);
         final cityWeatherList = List<CityWeather>.empty(growable: true);
-        for (final data in cData) {
+        for (final data in response) {
           final city = await weatherAppRepository.fetchSingleCity(
             data.cityId ?? 0,
           );
@@ -90,26 +86,12 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
           cityWeatherList.add(
             CityWeather(
               id: data.id,
-              city: city?.toDomainCityModel(),
-              weather: weather?.toDomainWeatherModel(),
+              city: city,
+              weather: weather,
             ),
           );
         }
         emit(FetchCarouselDataSuccess(cityWeather: cityWeatherList));
-        // final cityWeatherList = cData.map(
-        //   (e) async {
-        //     final city = await weatherAppRepository.fetchSingleCity(
-        //       e.cityId ?? 0,
-        //     );
-        //     final weather = await weatherAppRepository.fetchSingleWeather(
-        //       e.weatherId ?? 0,
-        //     );
-        //     return CityWeather(
-        //         id: e.id,
-        //         city: city?.toDomainCityModel(),
-        //         weather: weather?.toDomainWeatherModel());
-        //   },
-        // ).toList();
       } catch (e) {
         emit(FetchWeatherForCityError(error: e.toString()));
       }
@@ -119,8 +101,7 @@ class WeatherAppBloc extends Bloc<WeatherAppEvent, WeatherAppState> {
       emit(FetchCityLoading());
       try {
         final response = await weatherAppRepository.fetchCachedCities();
-        final cities = response.map((e) => e.toDomainCityModel()).toList();
-        emit(FetchCitiesSuccess(cities: cities));
+        emit(FetchCitiesSuccess(cities: response));
       } catch (e) {
         emit(FetchCityError(error: e.toString()));
       }

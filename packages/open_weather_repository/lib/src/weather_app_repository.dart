@@ -6,6 +6,7 @@ import 'package:open_weather_api/open_weather_api.dart' hide Weather;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
+import 'package:open_weather_repository/open_weather_repository.dart';
 import 'package:open_weather_repository/src/mappers/remote_to_cached_weather.dart';
 import 'package:open_weather_repository/src/models/carousel_data.dart';
 import 'package:open_weather_repository/src/models/models.dart';
@@ -23,9 +24,9 @@ class WeatherAppRepository {
 
   final OpenWeatherApi remoteApi;
 
-  Future<List<CityEntity>> fetchCachedCities() async {
+  Future<List<City>> fetchCachedCities() async {
     try {
-      var isar = await _getIsarBox();
+      var isar = await getIsarBox();
       if (isar.cityEntitys.where().isEmptySync()) {
         //no cities in the db
         final String response = await rootBundle.loadString('assets/ng.json');
@@ -49,7 +50,10 @@ class WeatherAppRepository {
         });
       }
       //retrieve 16 items
-      return isar.cityEntitys.where().findAll();
+      final isarResp = await isar.cityEntitys.where().findAll();
+      final cityData =
+          isarResp.map((e) => e.toDomainCityModel()).toList(growable: true);
+      return cityData;
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching cities -> ${e.toString()}");
@@ -58,11 +62,12 @@ class WeatherAppRepository {
     }
   }
 
-  Future<CityEntity?> fetchSingleCity(int cityId) async {
+  Future<City?> fetchSingleCity(int cityId) async {
     try {
-      final isar = await _getIsarBox();
-      final city = isar.cityEntitys.get(cityId);
-      return Future.value(city);
+      final isar = await getIsarBox();
+      final city = await isar.cityEntitys.get(cityId);
+      final domainCity = city?.toDomainCityModel();
+      return Future.value(domainCity);
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching city -> ${e.toString()}");
@@ -71,7 +76,7 @@ class WeatherAppRepository {
     }
   }
 
-  Future<WeatherEntity?> fetchWeatherForUser() async {
+  Future<WeatherData?> fetchWeatherForUser() async {
     try {
       bool serviceEnabled;
       LocationPermission permission;
@@ -110,7 +115,8 @@ class WeatherAppRepository {
           longitude: "${userLocation.longitude}",
           latittude: "${userLocation.latitude}");
       final cachedWeather = weatherResponse.toCacheModel();
-      return Future.value(cachedWeather);
+      final domainWeather = cachedWeather?.toDomainWeatherModel();
+      return Future.value(domainWeather);
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching city -> ${e.toString()}");
@@ -119,11 +125,12 @@ class WeatherAppRepository {
     }
   }
 
-  Future<WeatherEntity?> fetchSingleWeather(int weatherId) async {
+  Future<WeatherData?> fetchSingleWeather(int weatherId) async {
     try {
-      final isar = await _getIsarBox();
-      final weather = isar.weatherEntitys.get(weatherId);
-      return Future.value(weather);
+      final isar = await getIsarBox();
+      final weather = await isar.weatherEntitys.get(weatherId);
+      final domainWeather = weather?.toDomainWeatherModel();
+      return Future.value(domainWeather);
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching weather -> ${e.toString()}");
@@ -132,16 +139,16 @@ class WeatherAppRepository {
     }
   }
 
-  Future<CarouselEntityData?> addCarouselData(int cityId, int weatherId) async {
+  Future<CarouselData?> addCarouselData(int cityId, int weatherId) async {
     try {
-      final isar = await _getIsarBox();
+      final isar = await getIsarBox();
       final carouselData = CarouselEntityData()
         ..cityId = cityId
         ..weatherId = weatherId;
       await isar.writeTxn(() async {
         await isar.carouselEntityDatas.put(carouselData);
       });
-      return Future.value(carouselData);
+      return Future.value(carouselData.toDomainCarouselModel());
     } catch (e) {
       if (kDebugMode) {
         print("Error adding carousel data -> ${e.toString()}");
@@ -150,11 +157,13 @@ class WeatherAppRepository {
     }
   }
 
-  Future<List<CarouselEntityData>> fetchSavedCarouselData() async {
+  Future<List<CarouselData>> fetchSavedCarouselData() async {
     try {
-      final isar = await _getIsarBox();
+      final isar = await getIsarBox();
       final cData = await isar.carouselEntityDatas.where().findAll();
-      return Future.value(cData);
+      final domainCData =
+          cData.map((e) => e.toDomainCarouselModel()).toList(growable: true);
+      return Future.value(domainCData);
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching carousel data -> ${e.toString()}");
@@ -165,7 +174,7 @@ class WeatherAppRepository {
 
   Future<void> removeSavedCarouselData(int carouselDataId) async {
     try {
-      final isar = await _getIsarBox();
+      final isar = await getIsarBox();
       await isar.writeTxn(() async {
         final success = await isar.carouselEntityDatas.delete(carouselDataId);
         if (kDebugMode) {
@@ -181,9 +190,9 @@ class WeatherAppRepository {
     }
   }
 
-  Future<WeatherEntity?> fetchCachedWeatherForCity(int cityId) async {
+  Future<WeatherData?> fetchCachedWeatherForCity(int cityId) async {
     try {
-      var isar = await _getIsarBox();
+      var isar = await getIsarBox();
       //check if we have a weather value for it
       final savedWeather =
           await isar.weatherEntitys.filter().cityIdEqualTo(cityId).findFirst();
@@ -196,11 +205,11 @@ class WeatherAppRepository {
           await isar.writeTxn(() async {
             await isar.weatherEntitys.put(cachedWeather);
           });
-          return cachedWeather;
+          return cachedWeather.toDomainWeatherModel();
         }
         return null;
       }
-      return savedWeather;
+      return savedWeather.toDomainWeatherModel();
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching city -> ${e.toString()}");
@@ -209,19 +218,16 @@ class WeatherAppRepository {
     }
   }
 
-  Future<Isar> _getIsarBox() async {
+  Future<Isar> getIsarBox() async {
     final dir = await getApplicationDocumentsDirectory();
     Isar? isarInstance = Isar.getInstance();
     if (isarInstance != null) {
       return isarInstance;
     }
     // If not open, open a new instance
-    final isar = await Isar.open([
-      WeatherEntitySchema,
-      CityEntitySchema,
-      EnumCollectionSchema,
-      CarouselEntityDataSchema
-    ], directory: dir.path);
+    final isar = await Isar.open(
+        [WeatherEntitySchema, CityEntitySchema, CarouselEntityDataSchema],
+        directory: dir.path);
     return isar;
   }
 }
