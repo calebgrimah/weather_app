@@ -9,7 +9,6 @@ GFC weather application,
 ## Architecture 🚀
 - The Weather application has been structured in a clean modularised pattern. Separate modules for the repository, api, and domain have been created.
 ## Demo🚀
-![weather_app_demo.gif]
 
 ---
 
